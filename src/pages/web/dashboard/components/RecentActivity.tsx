@@ -1,9 +1,9 @@
-import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { usePosts } from '@/services/posts.service'
+import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { usePosts } from "@/services/posts.service";
 
 export function RecentActivity() {
-  const { data: posts, isLoading, error } = usePosts()
+  const { data: posts, isLoading, error } = usePosts();
 
   return (
     <Card>
@@ -31,5 +31,5 @@ export function RecentActivity() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

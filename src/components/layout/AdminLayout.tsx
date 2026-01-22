@@ -1,29 +1,25 @@
-import type { ReactNode } from 'react'
-import { cn } from '@/lib/utils'
-import { useUIStore } from '@/store/uiStore'
-import { Footer } from './Footer'
-import { Header } from './Header'
-import { Sidebar } from './Sidebar'
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { useUIStore } from "@/store/uiStore";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+import { Sidebar } from "./Sidebar";
 
 interface AdminLayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export function AdminLayout({ children }: AdminLayoutProps) {
-  const sidebarOpen = useUIStore((state) => state.sidebarOpen)
+  const sidebarOpen = useUIStore((state) => state.sidebarOpen);
 
   return (
     <div className="min-h-screen bg-background">
       <Header showSidebarToggle />
       <div className="flex">
         <Sidebar />
-        <main
-          className={cn('flex-1 p-6 transition-all duration-300', sidebarOpen ? 'ml-64' : 'ml-0')}
-        >
-          {children}
-        </main>
+        <main className={cn("flex-1 p-6 transition-all duration-300", sidebarOpen ? "ml-64" : "ml-0")}>{children}</main>
       </div>
       <Footer />
     </div>
-  )
+  );
 }

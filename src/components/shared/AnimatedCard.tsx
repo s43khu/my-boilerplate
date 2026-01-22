@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { motion } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface AnimatedCardProps {
-  title: string
-  children: React.ReactNode
-  delay?: number
+  title: string;
+  children: React.ReactNode;
+  delay?: number;
 }
 
 export function AnimatedCard({ title, children, delay = 0 }: AnimatedCardProps) {
@@ -22,5 +22,5 @@ export function AnimatedCard({ title, children, delay = 0 }: AnimatedCardProps) 
         <CardContent>{children}</CardContent>
       </Card>
     </motion.div>
-  )
+  );
 }

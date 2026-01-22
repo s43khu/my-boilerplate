@@ -1,13 +1,13 @@
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-import type { User } from '@/types/user.types'
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { User } from "@/types/user.types";
 
 interface AuthState {
-  user: User | null
-  token: string | null
-  setUser: (user: User | null) => void
-  setToken: (token: string | null) => void
-  logout: () => void
+  user: User | null;
+  token: string | null;
+  setUser: (user: User | null) => void;
+  setToken: (token: string | null) => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -20,7 +20,7 @@ export const useAuthStore = create<AuthState>()(
       logout: () => set({ user: null, token: null }),
     }),
     {
-      name: 'auth-storage',
+      name: "auth-storage",
     }
   )
-)
+);

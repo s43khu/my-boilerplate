@@ -1,6 +1,6 @@
-import { CallToAction } from './components/CallToAction'
-import { Features } from './components/Features'
-import { HeroSection } from './components/HeroSection'
+import { CallToAction } from "./components/CallToAction";
+import { Features } from "./components/Features";
+import { HeroSection } from "./components/HeroSection";
 
 export default function Home() {
   return (
@@ -9,5 +9,5 @@ export default function Home() {
       <Features />
       <CallToAction />
     </div>
-  )
+  );
 }

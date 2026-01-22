@@ -1,18 +1,18 @@
 export interface User {
-  id: string
-  email: string
-  name: string
-  avatar?: string
-  createdAt: string
+  id: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  createdAt: string;
 }
 
 export interface LoginCredentials {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 export interface RegisterData {
-  email: string
-  password: string
-  name: string
+  email: string;
+  password: string;
+  name: string;
 }

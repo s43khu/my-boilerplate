@@ -1,14 +1,14 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { AdminLayout } from '@/components/layout/AdminLayout'
-import { WebLayout } from '@/components/layout/WebLayout'
-import { ThemeProvider } from '@/components/providers/ThemeProvider'
-import { ErrorBoundary } from '@/components/shared/ErrorBoundary'
-import { ProtectedRoute } from '@/components/shared/ProtectedRoute'
-import { Toaster } from '@/components/ui/toaster'
-import { AdminDashboard, AdminSettings, Analytics, Users } from '@/pages/admin'
-import { ForgotPassword, Login, Register } from '@/pages/auth'
-import { NotFound, Unauthorized } from '@/pages/shared'
-import { Dashboard, Home, Profile, Settings } from '@/pages/web'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AdminLayout } from "@/components/layout/AdminLayout";
+import { WebLayout } from "@/components/layout/WebLayout";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
+import { ProtectedRoute } from "@/components/shared/ProtectedRoute";
+import { Toaster } from "@/components/ui/toaster";
+import { AdminDashboard, AdminSettings, Analytics, Users } from "@/pages/admin";
+import { ForgotPassword, Login, Register } from "@/pages/auth";
+import { NotFound, Unauthorized } from "@/pages/shared";
+import { Dashboard, Home, Profile, Settings } from "@/pages/web";
 
 function App() {
   return (
@@ -111,7 +111,7 @@ function App() {
         <Toaster />
       </ThemeProvider>
     </ErrorBoundary>
-  )
+  );
 }
 
-export default App
+export default App;

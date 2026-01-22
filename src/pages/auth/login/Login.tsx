@@ -1,7 +1,7 @@
-import { Info } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
-import { LoginForm } from './components/LoginForm'
-import { SocialLogin } from './components/SocialLogin'
+import { Info } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { LoginForm } from "./components/LoginForm";
+import { SocialLogin } from "./components/SocialLogin";
 
 export default function Login() {
   return (
@@ -21,7 +21,7 @@ export default function Login() {
               <div className="space-y-1">
                 <p className="text-sm font-medium text-blue-900 dark:text-blue-100">Demo Access</p>
                 <p className="text-xs text-blue-700 dark:text-blue-300">
-                  To view admin dashboard without authentication, navigate to:{' '}
+                  To view admin dashboard without authentication, navigate to:{" "}
                   <code className="px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-mono text-xs">
                     /admin
                   </code>
@@ -32,5 +32,5 @@ export default function Login() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

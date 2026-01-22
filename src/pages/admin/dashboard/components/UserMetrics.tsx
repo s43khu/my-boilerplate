@@ -1,11 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function UserMetrics() {
   const userStats = [
-    { period: 'Today', new: 12, active: 234, total: 2543 },
-    { period: 'This Week', new: 89, active: 1234, total: 2543 },
-    { period: 'This Month', new: 456, active: 2100, total: 2543 },
-  ]
+    { period: "Today", new: 12, active: 234, total: 2543 },
+    { period: "This Week", new: 89, active: 1234, total: 2543 },
+    { period: "This Month", new: 456, active: 2100, total: 2543 },
+  ];
 
   return (
     <Card>
@@ -15,10 +15,7 @@ export function UserMetrics() {
       <CardContent>
         <div className="space-y-4">
           {userStats.map((stat) => (
-            <div
-              key={stat.period}
-              className="flex items-center justify-between border-b pb-4 last:border-0"
-            >
+            <div key={stat.period} className="flex items-center justify-between border-b pb-4 last:border-0">
               <div>
                 <p className="font-medium">{stat.period}</p>
                 <p className="text-sm text-muted-foreground">
@@ -34,5 +31,5 @@ export function UserMetrics() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

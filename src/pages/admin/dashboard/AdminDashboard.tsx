@@ -1,7 +1,7 @@
-import { AnalyticsOverview } from './components/AnalyticsOverview'
-import { RecentUsers } from './components/RecentUsers'
-import { RevenueChart } from './components/RevenueChart'
-import { UserMetrics } from './components/UserMetrics'
+import { AnalyticsOverview } from "./components/AnalyticsOverview";
+import { RecentUsers } from "./components/RecentUsers";
+import { RevenueChart } from "./components/RevenueChart";
+import { UserMetrics } from "./components/UserMetrics";
 
 export default function AdminDashboard() {
   return (
@@ -18,5 +18,5 @@ export default function AdminDashboard() {
         <RecentUsers />
       </div>
     </div>
-  )
+  );
 }

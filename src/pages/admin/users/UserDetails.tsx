@@ -1,10 +1,10 @@
-import { ArrowLeft } from 'lucide-react'
-import { Link, useParams } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ArrowLeft } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function UserDetails() {
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>();
 
   return (
     <div className="space-y-6">
@@ -40,5 +40,5 @@ export default function UserDetails() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

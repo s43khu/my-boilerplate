@@ -1,6 +1,6 @@
-import { UserActions } from './components/UserActions'
-import { UserFilters } from './components/UserFilters'
-import { UsersTable } from './components/UsersTable'
+import { UserActions } from "./components/UserActions";
+import { UserFilters } from "./components/UserFilters";
+import { UsersTable } from "./components/UsersTable";
 
 export default function Users() {
   return (
@@ -16,5 +16,5 @@ export default function Users() {
       <UserFilters />
       <UsersTable />
     </div>
-  )
+  );
 }

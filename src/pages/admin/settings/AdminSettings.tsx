@@ -1,7 +1,7 @@
-import { APISettings } from './components/APISettings'
-import { EmailSettings } from './components/EmailSettings'
-import { GeneralSettings } from './components/GeneralSettings'
-import { SystemSettings } from './components/SystemSettings'
+import { APISettings } from "./components/APISettings";
+import { EmailSettings } from "./components/EmailSettings";
+import { GeneralSettings } from "./components/GeneralSettings";
+import { SystemSettings } from "./components/SystemSettings";
 
 export default function AdminSettings() {
   return (
@@ -16,5 +16,5 @@ export default function AdminSettings() {
       <APISettings />
       <SystemSettings />
     </div>
-  )
+  );
 }

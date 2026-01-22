@@ -1,5 +1,5 @@
-import { Plus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function UserActions() {
   return (
@@ -7,5 +7,5 @@ export function UserActions() {
       <Plus className="mr-2 h-4 w-4" />
       Add User
     </Button>
-  )
+  );
 }

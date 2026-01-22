@@ -1,4 +1,4 @@
-import { ForgotPasswordForm } from './components/ForgotPasswordForm'
+import { ForgotPasswordForm } from "./components/ForgotPasswordForm";
 
 export default function ForgotPassword() {
   return (
@@ -11,5 +11,5 @@ export default function ForgotPassword() {
         <ForgotPasswordForm />
       </div>
     </div>
-  )
+  );
 }

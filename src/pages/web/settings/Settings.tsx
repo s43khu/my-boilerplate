@@ -1,6 +1,6 @@
-import { AccountSettings } from './components/AccountSettings'
-import { NotificationSettings } from './components/NotificationSettings'
-import { SecuritySettings } from './components/SecuritySettings'
+import { AccountSettings } from "./components/AccountSettings";
+import { NotificationSettings } from "./components/NotificationSettings";
+import { SecuritySettings } from "./components/SecuritySettings";
 
 export default function Settings() {
   return (
@@ -14,5 +14,5 @@ export default function Settings() {
       <NotificationSettings />
       <SecuritySettings />
     </div>
-  )
+  );
 }

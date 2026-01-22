@@ -1,12 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function RecentUsers() {
   const users = [
-    { name: 'John Doe', email: 'john@example.com', joined: '2 hours ago' },
-    { name: 'Jane Smith', email: 'jane@example.com', joined: '5 hours ago' },
-    { name: 'Bob Johnson', email: 'bob@example.com', joined: '1 day ago' },
-    { name: 'Alice Williams', email: 'alice@example.com', joined: '2 days ago' },
-  ]
+    { name: "John Doe", email: "john@example.com", joined: "2 hours ago" },
+    { name: "Jane Smith", email: "jane@example.com", joined: "5 hours ago" },
+    { name: "Bob Johnson", email: "bob@example.com", joined: "1 day ago" },
+    { name: "Alice Williams", email: "alice@example.com", joined: "2 days ago" },
+  ];
 
   return (
     <Card>
@@ -30,5 +30,5 @@ export function RecentUsers() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

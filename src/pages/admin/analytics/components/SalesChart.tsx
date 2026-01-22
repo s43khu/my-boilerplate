@@ -1,25 +1,25 @@
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart'
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 
 const chartConfig = {
   sales: {
-    label: 'Sales',
-    color: 'var(--chart-1)',
+    label: "Sales",
+    color: "var(--chart-1)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function SalesChart() {
   const salesData = [
-    { month: 'Jan', sales: 45000 },
-    { month: 'Feb', sales: 52000 },
-    { month: 'Mar', sales: 48000 },
-    { month: 'Apr', sales: 61000 },
-    { month: 'May', sales: 55000 },
-    { month: 'Jun', sales: 67000 },
-    { month: 'Jul', sales: 72000 },
-    { month: 'Aug', sales: 68000 },
-  ]
+    { month: "Jan", sales: 45000 },
+    { month: "Feb", sales: 52000 },
+    { month: "Mar", sales: 48000 },
+    { month: "Apr", sales: 61000 },
+    { month: "May", sales: 55000 },
+    { month: "Jun", sales: 67000 },
+    { month: "Jul", sales: 72000 },
+    { month: "Aug", sales: 68000 },
+  ];
 
   return (
     <Card>
@@ -37,17 +37,12 @@ export function SalesChart() {
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => `$${value / 1000}k`}
-            />
+            <YAxis tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => `$${value / 1000}k`} />
             <ChartTooltip content={<ChartTooltipContent />} />
             <Bar dataKey="sales" fill="var(--color-sales)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import { QuickActions } from './components/QuickActions'
-import { RecentActivity } from './components/RecentActivity'
-import { StatsCards } from './components/StatsCards'
+import { QuickActions } from "./components/QuickActions";
+import { RecentActivity } from "./components/RecentActivity";
+import { StatsCards } from "./components/StatsCards";
 
 export default function Dashboard() {
   return (
@@ -17,5 +17,5 @@ export default function Dashboard() {
         <QuickActions />
       </div>
     </div>
-  )
+  );
 }

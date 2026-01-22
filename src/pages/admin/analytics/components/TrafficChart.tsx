@@ -1,28 +1,35 @@
-import { Cell, Pie, PieChart } from 'recharts'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, type ChartConfig } from '@/components/ui/chart'
+import { Cell, Pie, PieChart } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
 
 const chartConfig = {
   direct: {
-    label: 'Direct',
-    color: 'var(--chart-1)',
+    label: "Direct",
+    color: "var(--chart-1)",
   },
   social: {
-    label: 'Social',
-    color: 'var(--chart-2)',
+    label: "Social",
+    color: "var(--chart-2)",
   },
   search: {
-    label: 'Search',
-    color: 'var(--chart-3)',
+    label: "Search",
+    color: "var(--chart-3)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function TrafficChart() {
   const trafficData = [
-    { source: 'direct', visitors: 1234, percentage: 45 },
-    { source: 'social', visitors: 856, percentage: 31 },
-    { source: 'search', visitors: 654, percentage: 24 },
-  ]
+    { source: "direct", visitors: 1234, percentage: 45 },
+    { source: "social", visitors: 856, percentage: 31 },
+    { source: "search", visitors: 654, percentage: 24 },
+  ];
 
   return (
     <Card>
@@ -33,24 +40,15 @@ export function TrafficChart() {
         <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Pie
-              data={trafficData}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              outerRadius={80}
-              dataKey="visitors"
-            >
+            <Pie data={trafficData} cx="50%" cy="50%" labelLine={false} outerRadius={80} dataKey="visitors">
               {trafficData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={`var(--color-${entry.source})`} />
               ))}
             </Pie>
-            <ChartLegend
-              content={({ payload }) => <ChartLegendContent payload={payload} nameKey="source" />}
-            />
+            <ChartLegend content={({ payload }) => <ChartLegendContent payload={payload} nameKey="source" />} />
           </PieChart>
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

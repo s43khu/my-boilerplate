@@ -1,7 +1,7 @@
-import { ConversionFunnel } from './components/ConversionFunnel'
-import { SalesChart } from './components/SalesChart'
-import { TopProducts } from './components/TopProducts'
-import { TrafficChart } from './components/TrafficChart'
+import { ConversionFunnel } from "./components/ConversionFunnel";
+import { SalesChart } from "./components/SalesChart";
+import { TopProducts } from "./components/TopProducts";
+import { TrafficChart } from "./components/TrafficChart";
 
 export default function Analytics() {
   return (
@@ -21,5 +21,5 @@ export default function Analytics() {
         <TopProducts />
       </div>
     </div>
-  )
+  );
 }

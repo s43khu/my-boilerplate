@@ -1,5 +1,5 @@
-import { RegisterForm } from './components/RegisterForm'
-import { TermsCheckbox } from './components/TermsCheckbox'
+import { RegisterForm } from "./components/RegisterForm";
+import { TermsCheckbox } from "./components/TermsCheckbox";
 
 export default function Register() {
   return (
@@ -13,5 +13,5 @@ export default function Register() {
         <TermsCheckbox />
       </div>
     </div>
-  )
+  );
 }

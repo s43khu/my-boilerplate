@@ -1,18 +1,18 @@
-import { Activity, DollarSign, TrendingUp, Users } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Activity, DollarSign, TrendingUp, Users } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function AnalyticsOverview() {
   const metrics = [
-    { label: 'Total Revenue', value: '$125,430', change: '+12.5%', icon: DollarSign },
-    { label: 'Active Users', value: '2,543', change: '+8.2%', icon: Users },
-    { label: 'Growth Rate', value: '24.3%', change: '+2.1%', icon: TrendingUp },
-    { label: 'Activity', value: '1,234', change: '+15.3%', icon: Activity },
-  ]
+    { label: "Total Revenue", value: "$125,430", change: "+12.5%", icon: DollarSign },
+    { label: "Active Users", value: "2,543", change: "+8.2%", icon: Users },
+    { label: "Growth Rate", value: "24.3%", change: "+2.1%", icon: TrendingUp },
+    { label: "Activity", value: "1,234", change: "+15.3%", icon: Activity },
+  ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {metrics.map((metric) => {
-        const Icon = metric.icon
+        const Icon = metric.icon;
         return (
           <Card key={metric.label}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -26,8 +26,8 @@ export function AnalyticsOverview() {
               </p>
             </CardContent>
           </Card>
-        )
+        );
       })}
     </div>
-  )
+  );
 }

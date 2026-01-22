@@ -1,6 +1,6 @@
-import { ActivityLog } from './components/ActivityLog'
-import { ProfileForm } from './components/ProfileForm'
-import { ProfileHeader } from './components/ProfileHeader'
+import { ActivityLog } from "./components/ActivityLog";
+import { ProfileForm } from "./components/ProfileForm";
+import { ProfileHeader } from "./components/ProfileHeader";
 
 export default function Profile() {
   return (
@@ -14,5 +14,5 @@ export default function Profile() {
       <ProfileForm />
       <ActivityLog />
     </div>
-  )
+  );
 }

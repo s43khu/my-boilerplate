@@ -1,23 +1,23 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function Features() {
   const features = [
     {
-      title: 'Fast Development',
-      description: 'Built with Vite and SWC for blazing fast builds',
-      content: 'Start coding in minutes, not days. All the tools you need are already configured.',
+      title: "Fast Development",
+      description: "Built with Vite and SWC for blazing fast builds",
+      content: "Start coding in minutes, not days. All the tools you need are already configured.",
     },
     {
-      title: 'Modern Stack',
-      description: 'TanStack Query, Zustand, shadcn/ui, and more',
-      content: 'Built with the latest technologies and best practices for production applications.',
+      title: "Modern Stack",
+      description: "TanStack Query, Zustand, shadcn/ui, and more",
+      content: "Built with the latest technologies and best practices for production applications.",
     },
     {
-      title: 'Complete Examples',
-      description: 'Authentication, CRUD, charts, and more',
-      content: 'Full showcase of common patterns and features you will need in real applications.',
+      title: "Complete Examples",
+      description: "Authentication, CRUD, charts, and more",
+      content: "Full showcase of common patterns and features you will need in real applications.",
     },
-  ]
+  ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
@@ -33,5 +33,5 @@ export function Features() {
         </Card>
       ))}
     </div>
-  )
+  );
 }

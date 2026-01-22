@@ -1,1 +1,1 @@
-export { default } from './AdminSettings'
+export { default } from "./AdminSettings";

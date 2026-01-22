@@ -1,14 +1,14 @@
-import { FileText, Settings, User } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { FileText, Settings, User } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function QuickActions() {
   const actions = [
-    { label: 'View Profile', icon: User, href: '/profile' },
-    { label: 'Settings', icon: Settings, href: '/settings' },
-    { label: 'Documents', icon: FileText, href: '#' },
-  ]
+    { label: "View Profile", icon: User, href: "/profile" },
+    { label: "Settings", icon: Settings, href: "/settings" },
+    { label: "Documents", icon: FileText, href: "#" },
+  ];
 
   return (
     <Card>
@@ -17,7 +17,7 @@ export function QuickActions() {
       </CardHeader>
       <CardContent className="space-y-2">
         {actions.map((action) => {
-          const Icon = action.icon
+          const Icon = action.icon;
           return (
             <Button key={action.label} variant="outline" className="w-full justify-start" asChild>
               <Link to={action.href}>
@@ -25,9 +25,9 @@ export function QuickActions() {
                 {action.label}
               </Link>
             </Button>
-          )
+          );
         })}
       </CardContent>
     </Card>
-  )
+  );
 }

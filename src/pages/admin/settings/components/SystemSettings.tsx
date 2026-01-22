@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 export function SystemSettings() {
   return (
@@ -25,5 +25,5 @@ export function SystemSettings() {
         <Button>Save System Settings</Button>
       </CardContent>
     </Card>
-  )
+  );
 }

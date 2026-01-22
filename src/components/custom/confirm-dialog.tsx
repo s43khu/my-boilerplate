@@ -11,8 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Button, type ButtonProps } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { type ButtonProps } from '@/components/ui/button'
 
 interface ConfirmDialogProps {
   trigger: ReactNode

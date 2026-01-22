@@ -1,8 +1,116 @@
-export function App() {
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { AdminLayout } from '@/components/layout/AdminLayout'
+import { WebLayout } from '@/components/layout/WebLayout'
+import { ThemeProvider } from '@/components/providers/ThemeProvider'
+import { ErrorBoundary } from '@/components/shared/ErrorBoundary'
+import { ProtectedRoute } from '@/components/shared/ProtectedRoute'
+import { Toaster } from '@/components/ui/toaster'
+import { AdminDashboard, AdminSettings, Analytics, Users } from '@/pages/admin'
+import { ForgotPassword, Login, Register } from '@/pages/auth'
+import { NotFound, Unauthorized } from '@/pages/shared'
+import { Dashboard, Home, Profile, Settings } from '@/pages/web'
+
+function App() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="font-medium">Hello World</div>
-    </div>
+    <ErrorBoundary>
+      <ThemeProvider defaultTheme="system" storageKey="app-theme">
+        <BrowserRouter>
+          <Routes>
+            {/* Auth Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+
+            {/* Web Panel Routes */}
+            <Route
+              path="/"
+              element={
+                <WebLayout>
+                  <Home />
+                </WebLayout>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <WebLayout>
+                    <Dashboard />
+                  </WebLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <WebLayout>
+                    <Profile />
+                  </WebLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <WebLayout>
+                    <Settings />
+                  </WebLayout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Admin Panel Routes - No auth required for demo */}
+            <Route
+              path="/admin"
+              element={
+                <AdminLayout>
+                  <AdminDashboard />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <AdminLayout>
+                  <Users.Users />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/users/:id"
+              element={
+                <AdminLayout>
+                  <Users.UserDetails />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/analytics"
+              element={
+                <AdminLayout>
+                  <Analytics />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/settings"
+              element={
+                <AdminLayout>
+                  <AdminSettings />
+                </AdminLayout>
+              }
+            />
+
+            {/* Shared Routes */}
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        <Toaster />
+      </ThemeProvider>
+    </ErrorBoundary>
   )
 }
 

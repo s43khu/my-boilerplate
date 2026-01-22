@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { apiClient } from '@/lib/api/client'
 
 export interface Post {
@@ -9,9 +9,37 @@ export interface Post {
   createdAt: string
 }
 
+export interface PaginatedPostsResponse {
+  data: Post[]
+  pagination: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+  }
+}
+
+export interface PostsQueryParams {
+  page?: number
+  limit?: number
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc'
+}
+
 const postsApi = {
   getPosts: async () => {
     const { data } = await apiClient.get<Post[]>('/posts')
+    return data
+  },
+
+  getPostsPaginated: async (params: PostsQueryParams = {}) => {
+    const { page = 1, limit = 10, sortBy, sortOrder = 'desc' } = params
+    const queryParams = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+      ...(sortBy && { sortBy, sortOrder }),
+    })
+    const { data } = await apiClient.get<PaginatedPostsResponse>(`/posts?${queryParams.toString()}`)
     return data
   },
 
@@ -39,6 +67,26 @@ export const usePosts = () => {
   return useQuery({
     queryKey: ['posts'],
     queryFn: postsApi.getPosts,
+  })
+}
+
+export const usePostsPaginated = (params: PostsQueryParams = {}) => {
+  const { page = 1, limit = 10, sortBy, sortOrder } = params
+  return useQuery({
+    queryKey: ['posts', 'paginated', { page, limit, sortBy, sortOrder }],
+    queryFn: () => postsApi.getPostsPaginated(params),
+  })
+}
+
+export const useInfinitePosts = (limit: number = 10) => {
+  return useInfiniteQuery({
+    queryKey: ['posts', 'infinite', { limit }],
+    queryFn: ({ pageParam = 1 }) => postsApi.getPostsPaginated({ page: pageParam, limit }),
+    getNextPageParam: (lastPage) => {
+      const { pagination } = lastPage
+      return pagination.page < pagination.totalPages ? pagination.page + 1 : undefined
+    },
+    initialPageParam: 1,
   })
 }
 

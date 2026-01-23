@@ -1,16 +1,58 @@
-import { Moon, Sun, Menu, X } from "lucide-react";
-import { useTheme } from "@/components/providers/ThemeProvider";
-import { Switch } from "@/components/ui/switch";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { useUIStore } from "@/store/uiStore";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useModeAnimation, ThemeAnimationType } from "react-theme-switch-animation";
+import { Moon, Sun, Menu, X } from "lucide-react";
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
-  const isDark = theme === "dark";
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved === "dark";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (isDark) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
+
   const sidebarOpen = useUIStore((state) => state.sidebarOpen);
   const toggleSidebar = useUIStore((state) => state.toggleSidebar);
   const isMobile = useMediaQuery("(max-width: 1023px)");
+
+  const handleThemeChange = useCallback((newIsDark: boolean) => {
+    setIsDark(newIsDark);
+  }, []);
+
+  const { ref: themeButtonRef, toggleSwitchTheme } = useModeAnimation({
+    animationType: ThemeAnimationType.CIRCLE,
+    duration: 750,
+    isDarkMode: isDark,
+    onDarkModeChange: handleThemeChange,
+  });
+
+  const handleThemeToggle = async () => {
+    const root = window.document.documentElement;
+    root.setAttribute('data-no-transition', 'true');
+    
+    try {
+      await toggleSwitchTheme();
+      // Wait for the full animation (500ms) plus a generous buffer for cleanup
+      await new Promise(resolve => setTimeout(resolve, 800));
+    } finally {
+      root.removeAttribute('data-no-transition');
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -25,13 +67,16 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Switch
-            checked={isDark}
-            onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+          <Button
+            ref={themeButtonRef}
+            variant="ghost"
+            size="icon"
+            onClick={handleThemeToggle}
             aria-label="Toggle theme"
-            icon={isDark ? <Moon /> : <Sun />}
-            className="h-7 w-12 [&>[data-slot=switch-thumb]]:h-6 [&>[data-slot=switch-thumb]]:w-6 [&>[data-slot=switch-thumb]]:data-[state=checked]:translate-x-5 [&>[data-slot=switch-thumb]_svg]:h-4 [&>[data-slot=switch-thumb]_svg]:w-4"
-          />
+            className="h-10 w-10"
+          >
+            {isDark ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+          </Button>
         </div>
       </div>
     </header>

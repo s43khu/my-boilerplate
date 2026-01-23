@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdminLayout } from "@/components/layout/AdminLayout";
 import { WebLayout } from "@/components/layout/WebLayout";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
+
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import { ProtectedRoute } from "@/components/shared/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
@@ -23,8 +23,7 @@ import { Dashboard, Home, Profile, Settings } from "@/pages/web";
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="system" storageKey="app-theme">
-        <BrowserRouter>
+      <BrowserRouter>
           <Routes>
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
@@ -157,9 +156,8 @@ function App() {
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
         <Toaster />
-      </ThemeProvider>
+      </BrowserRouter>
     </ErrorBoundary>
   );
 }

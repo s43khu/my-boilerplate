@@ -192,35 +192,26 @@ export function Sidebar() {
                 </TooltipTrigger>
                 <TooltipContent side="right">{item.name}</TooltipContent>
               </Tooltip>
-              <DropdownMenuContent side="right" align="start" className="w-48">
-                <DropdownMenuLabel>{item.name}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => {
-                    navigate(item.href);
-                    handleLinkClick();
-                  }}
-                  className={cn("cursor-pointer", mainItemActive && "bg-accent")}
-                >
-                  {item.name}
-                </DropdownMenuItem>
-                {item.subItems?.map((subItem) => {
-                  const subHref = subItem.href.replace(":id", "");
-                  const subItemActive = isActive(subHref);
-                  return (
-                    <DropdownMenuItem
-                      key={subItem.name}
-                      onClick={() => {
-                        navigate(subHref);
-                        handleLinkClick();
-                      }}
-                      className={cn("cursor-pointer", subItemActive && "bg-accent font-medium")}
-                    >
-                      {subItem.name}
-                    </DropdownMenuItem>
-                  );
-                })}
-              </DropdownMenuContent>
+                <DropdownMenuContent side="right" align="start" className="w-48">
+                  <DropdownMenuLabel>{item.name}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {item.subItems?.map((subItem) => {
+                    const subHref = subItem.href.replace(":id", "");
+                    const subItemActive = isActive(subHref);
+                    return (
+                      <DropdownMenuItem
+                        key={subItem.name}
+                        onClick={() => {
+                          navigate(subHref);
+                          handleLinkClick();
+                        }}
+                        className={cn("cursor-pointer", subItemActive && "bg-accent font-medium")}
+                      >
+                        {subItem.name}
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
             </DropdownMenu>
           </li>
         );

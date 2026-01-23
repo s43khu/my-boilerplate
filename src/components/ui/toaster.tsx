@@ -1,6 +1,6 @@
-import { toast as hotToast, Toaster as HotToaster } from "react-hot-toast";
+import { AlertCircle, CheckCircle2, Loader2, X } from "lucide-react";
 import type { Toast } from "react-hot-toast";
-import { X, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Toaster as HotToaster, toast as hotToast } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 
 export interface ToastProps {
@@ -9,7 +9,17 @@ export interface ToastProps {
   variant?: "default" | "success" | "error" | "loading";
 }
 
-function CustomToast({ t, title, description, variant }: { t: Toast; title?: string; description?: string; variant?: "default" | "success" | "error" | "loading" }) {
+function CustomToast({
+  t,
+  title,
+  description,
+  variant,
+}: {
+  t: Toast;
+  title?: string;
+  description?: string;
+  variant?: "default" | "success" | "error" | "loading";
+}) {
   const isSuccess = variant === "success";
   const isError = variant === "error";
   const isLoading = variant === "loading";
@@ -36,22 +46,15 @@ function CustomToast({ t, title, description, variant }: { t: Toast; title?: str
     >
       <div className="flex-1 w-0 p-4 pr-10">
         <div className="flex items-start">
-          {getIcon() && (
-            <div className="shrink-0 mr-3 mt-0.5">
-              {getIcon()}
-            </div>
-          )}
+          {getIcon() && <div className="shrink-0 mr-3 mt-0.5">{getIcon()}</div>}
           <div className={cn("flex-1", !getIcon() && "ml-3")}>
             {title && <p className="text-sm font-medium">{title}</p>}
-            {description && (
-              <p className={cn("text-sm", title ? "mt-1 opacity-90" : "")}>
-                {description}
-              </p>
-            )}
+            {description && <p className={cn("text-sm", title ? "mt-1 opacity-90" : "")}>{description}</p>}
           </div>
         </div>
       </div>
       <button
+        type="button"
         onClick={() => hotToast.dismiss(t.id)}
         className="absolute top-2 right-2 rounded-md p-1 hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring transition-opacity"
         aria-label="Close"
@@ -66,20 +69,10 @@ export function useToast() {
   return {
     toast: (props: ToastProps) => {
       const { title, description, variant } = props;
-      
-      hotToast.custom(
-        (t) => (
-          <CustomToast
-            t={t}
-            title={title}
-            description={description}
-            variant={variant}
-          />
-        ),
-        {
-          duration: 4000,
-        }
-      );
+
+      hotToast.custom((t) => <CustomToast t={t} title={title} description={description} variant={variant} />, {
+        duration: 4000,
+      });
     },
   };
 }

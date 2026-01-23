@@ -1,9 +1,9 @@
+import { Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { Edit, Trash2, MoreHorizontal, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { DataTable, type Column } from "@/components/custom/data-table";
 import { ConfirmDialog } from "@/components/custom/confirm-dialog";
+import { type Column, DataTable } from "@/components/custom/data-table";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -109,10 +109,7 @@ export function UsersTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() => handleView(row.id)}
-                className="cursor-pointer"
-              >
+              <DropdownMenuItem onClick={() => handleView(row.id)} className="cursor-pointer">
                 <Eye className="mr-2 h-4 w-4" />
                 View
               </DropdownMenuItem>

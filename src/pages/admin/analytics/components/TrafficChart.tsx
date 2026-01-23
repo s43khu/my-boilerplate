@@ -1,12 +1,12 @@
 import { Cell, Pie, PieChart } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
+  type ChartConfig,
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
-  type ChartConfig,
+  ChartTooltip,
+  ChartTooltipContent,
 } from "@/components/ui/chart";
 
 const chartConfig = {
@@ -41,8 +41,8 @@ export function TrafficChart() {
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent />} />
             <Pie data={trafficData} cx="50%" cy="50%" labelLine={false} outerRadius={80} dataKey="visitors">
-              {trafficData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={`var(--color-${entry.source})`} />
+              {trafficData.map((entry) => (
+                <Cell key={`cell-${entry.source}`} fill={`var(--color-${entry.source})`} />
               ))}
             </Pie>
             <ChartLegend content={({ payload }) => <ChartLegendContent payload={payload} nameKey="source" />} />

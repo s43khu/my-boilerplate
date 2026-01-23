@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { ThemeAnimationType, useModeAnimation } from "react-theme-switch-animation";
 import { Button } from "@/components/ui/button";
-import { useUIStore } from "@/store/uiStore";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { useModeAnimation, ThemeAnimationType } from "react-theme-switch-animation";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { useUIStore } from "@/store/uiStore";
 
 export function Header() {
   const [isDark, setIsDark] = useState(() => {
@@ -43,14 +43,14 @@ export function Header() {
 
   const handleThemeToggle = async () => {
     const root = window.document.documentElement;
-    root.setAttribute('data-no-transition', 'true');
-    
+    root.setAttribute("data-no-transition", "true");
+
     try {
       await toggleSwitchTheme();
       // Wait for the full animation (500ms) plus a generous buffer for cleanup
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 800));
     } finally {
-      root.removeAttribute('data-no-transition');
+      root.removeAttribute("data-no-transition");
     }
   };
 

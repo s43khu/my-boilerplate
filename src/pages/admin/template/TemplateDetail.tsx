@@ -1,11 +1,24 @@
-import { ArrowLeft } from "lucide-react";
+import {
+  ArrowLeft,
+  Building,
+  Calendar,
+  Download,
+  Edit,
+  Mail,
+  MapPin,
+  MoreHorizontal,
+  Phone,
+  Share2,
+  Tag,
+  Trash2,
+  User,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import { type Column, DataTable } from "@/components/custom/data-table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DataTable, type Column } from "@/components/custom/data-table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +27,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Edit, Trash2, Download, Share2, Calendar, User, Mail, Phone, MapPin, Building, Tag } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 type ActivityItem = {
   id: string;
@@ -66,7 +79,7 @@ const activityColumns: Column<ActivityItem>[] = [
     header: "",
     accessor: "id",
     className: "w-[50px]",
-    cell: (_value, row) => (
+    cell: (_value, _row) => (
       <div className="flex items-center justify-end">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -183,9 +196,7 @@ export default function TemplateDetail() {
                     <Tag className="h-4 w-4" />
                     <span>Status</span>
                   </div>
-                  <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                    Active
-                  </Badge>
+                  <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Badge>
                 </div>
               </div>
             </CardContent>
@@ -197,9 +208,9 @@ export default function TemplateDetail() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                This is a comprehensive React boilerplate template that includes modern UI components, routing,
-                state management, and best practices. It features a clean architecture, TypeScript support, and
-                a beautiful design system built with Tailwind CSS and Shadcn UI components.
+                This is a comprehensive React boilerplate template that includes modern UI components, routing, state
+                management, and best practices. It features a clean architecture, TypeScript support, and a beautiful
+                design system built with Tailwind CSS and Shadcn UI components.
               </p>
             </CardContent>
           </Card>
@@ -296,4 +307,3 @@ export default function TemplateDetail() {
     </div>
   );
 }
-

@@ -1,20 +1,17 @@
-import { useState, useEffect } from "react";
 import {
   BarChart3,
-  Settings,
-  Users,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   LayoutDashboard,
-  User,
   LogOut,
   MoreVertical,
-  ChevronDown,
-  ChevronRight,
-  ChevronLeft,
+  Settings,
+  User,
+  Users,
 } from "lucide-react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { useUIStore } from "@/store/uiStore";
-import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -25,6 +22,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useAuth } from "@/hooks/useAuth";
+import { cn } from "@/lib/utils";
+import { useUIStore } from "@/store/uiStore";
 
 interface NavItem {
   name: string;
@@ -39,9 +39,7 @@ const navigation: NavItem[] = [
     name: "Users",
     href: "/admin/users",
     icon: Users,
-    subItems: [
-      { name: "All Users", href: "/admin/users" }
-    ],
+    subItems: [{ name: "All Users", href: "/admin/users" }],
   },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   {
@@ -124,9 +122,9 @@ export function Sidebar() {
     }
     if (cleanHref.includes("/:id")) {
       const basePath = cleanHref.replace("/:id", "");
-      return location.pathname.startsWith(basePath + "/") && location.pathname !== basePath;
+      return location.pathname.startsWith(`${basePath}/`) && location.pathname !== basePath;
     }
-    return location.pathname.startsWith(cleanHref + "/");
+    return location.pathname.startsWith(`${cleanHref}/`);
   };
 
   const isMainItemActive = (item: NavItem) => {
@@ -181,6 +179,7 @@ export function Sidebar() {
                 <TooltipTrigger asChild>
                   <DropdownMenuTrigger asChild>
                     <button
+                      type="button"
                       className={cn(
                         "flex items-center justify-center w-full rounded-lg p-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
                         (mainItemActive || hasActiveSub) && "bg-accent text-accent-foreground"
@@ -192,26 +191,26 @@ export function Sidebar() {
                 </TooltipTrigger>
                 <TooltipContent side="right">{item.name}</TooltipContent>
               </Tooltip>
-                <DropdownMenuContent side="right" align="start" className="w-48">
-                  <DropdownMenuLabel>{item.name}</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {item.subItems?.map((subItem) => {
-                    const subHref = subItem.href.replace(":id", "");
-                    const subItemActive = isActive(subHref);
-                    return (
-                      <DropdownMenuItem
-                        key={subItem.name}
-                        onClick={() => {
-                          navigate(subHref);
-                          handleLinkClick();
-                        }}
-                        className={cn("cursor-pointer", subItemActive && "bg-accent font-medium")}
-                      >
-                        {subItem.name}
-                      </DropdownMenuItem>
-                    );
-                  })}
-                </DropdownMenuContent>
+              <DropdownMenuContent side="right" align="start" className="w-48">
+                <DropdownMenuLabel>{item.name}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {item.subItems?.map((subItem) => {
+                  const subHref = subItem.href.replace(":id", "");
+                  const subItemActive = isActive(subHref);
+                  return (
+                    <DropdownMenuItem
+                      key={subItem.name}
+                      onClick={() => {
+                        navigate(subHref);
+                        handleLinkClick();
+                      }}
+                      className={cn("cursor-pointer", subItemActive && "bg-accent font-medium")}
+                    >
+                      {subItem.name}
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
             </DropdownMenu>
           </li>
         );
@@ -245,6 +244,7 @@ export function Sidebar() {
       return (
         <li key={item.name}>
           <button
+            type="button"
             onClick={() => toggleExpanded(item.name)}
             className={cn(
               "flex items-center justify-between w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
@@ -255,11 +255,7 @@ export function Sidebar() {
               <Icon className="h-5 w-5" />
               <span>{item.name}</span>
             </div>
-            {isExpanded ? (
-              <ChevronDown className="h-4 w-4" />
-            ) : (
-              <ChevronRight className="h-4 w-4" />
-            )}
+            {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
           </button>
           {isExpanded && (
             <ul className="mt-1 space-y-1 pl-4 border-l-2 border-border ml-3">
@@ -319,42 +315,34 @@ export function Sidebar() {
         {!isMobile && (
           <div className="relative">
             <button
+              type="button"
               onClick={toggleSidebarCollapsed}
               className="absolute -right-3 top-4 z-50 flex h-6 w-6 items-center justify-center rounded-full border bg-background shadow-md transition-all hover:bg-accent"
               aria-label="Toggle sidebar"
             >
-              {sidebarCollapsed ? (
-                <ChevronRight className="h-4 w-4" />
-              ) : (
-                <ChevronLeft className="h-4 w-4" />
-              )}
+              {sidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
             </button>
           </div>
         )}
         <nav
           className={cn(
             "flex-1 p-4 flex flex-col",
-            sidebarOpen
-              ? "overflow-y-auto opacity-100"
-              : "overflow-hidden opacity-0 lg:opacity-100",
+            sidebarOpen ? "overflow-y-auto opacity-100" : "overflow-hidden opacity-0 lg:opacity-100",
             !sidebarOpen && isMobile && "hidden lg:flex"
           )}
         >
           <ul className="space-y-2 flex-1">{navigation.map(renderNavItem)}</ul>
         </nav>
-        <div
-          className={cn(
-            "p-4",
-            !sidebarCollapsed && "border-t",
-            !sidebarOpen && isMobile && "hidden lg:block"
-          )}
-        >
+        <div className={cn("p-4", !sidebarCollapsed && "border-t", !sidebarOpen && isMobile && "hidden lg:block")}>
           {sidebarCollapsed ? (
             <Tooltip>
               <TooltipTrigger asChild>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="flex items-center justify-center w-full rounded-lg p-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
+                    <button
+                      type="button"
+                      className="flex items-center justify-center w-full rounded-lg p-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                    >
                       <Avatar size="sm">
                         {displayUser.avatar && <AvatarImage src={displayUser.avatar} alt={displayUser.name} />}
                         <AvatarFallback>{getInitials(displayUser.name)}</AvatarFallback>
@@ -397,7 +385,10 @@ export function Sidebar() {
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-3 w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
+                <button
+                  type="button"
+                  className="flex items-center gap-3 w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
                   <Avatar size="sm">
                     {displayUser.avatar && <AvatarImage src={displayUser.avatar} alt={displayUser.name} />}
                     <AvatarFallback>{getInitials(displayUser.name)}</AvatarFallback>

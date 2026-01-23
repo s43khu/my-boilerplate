@@ -33,9 +33,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
             !sidebarOpen && "lg:ml-64"
           )}
         >
-          <div className="w-full max-w-full overflow-x-hidden">
-            {children}
-          </div>
+          <div className="w-full max-w-full overflow-x-hidden">{children}</div>
         </main>
       </div>
       <Footer />

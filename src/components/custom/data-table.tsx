@@ -1,6 +1,5 @@
-import { useState, type ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import {
   Pagination,
   PaginationContent,
@@ -11,6 +10,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
 export interface Column<T> {
   header: string;
@@ -118,35 +118,41 @@ export function DataTable<T extends Record<string, unknown>>({
         <CardContent className="pt-6 overflow-x-auto">
           <div className="min-w-full">
             <Table>
-            <TableHeader>
-              <TableRow>
-                {columns.map((column, index) => (
-                  <TableHead key={index} className={column.className}>
-                    {column.header}
-                  </TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {paginatedData.length === 0 ? (
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={columns.length} className="text-center text-muted-foreground">
-                    {emptyMessage}
-                  </TableCell>
+                  {columns.map((column, index) => (
+                    <TableHead
+                      key={typeof column.accessor === "string" ? column.accessor : `col-${index}-${column.header}`}
+                      className={column.className}
+                    >
+                      {column.header}
+                    </TableHead>
+                  ))}
                 </TableRow>
-              ) : (
-                paginatedData.map((row) => (
-                  <TableRow key={getRowId(row)}>
-                    {columns.map((column, index) => (
-                      <TableCell key={index} className={column.className}>
-                        {renderCell(column, row)}
-                      </TableCell>
-                    ))}
+              </TableHeader>
+              <TableBody>
+                {paginatedData.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={columns.length} className="text-center text-muted-foreground">
+                      {emptyMessage}
+                    </TableCell>
                   </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
+                ) : (
+                  paginatedData.map((row) => (
+                    <TableRow key={getRowId(row)}>
+                      {columns.map((column, index) => (
+                        <TableCell
+                          key={typeof column.accessor === "string" ? column.accessor : `cell-${index}-${column.header}`}
+                          className={column.className}
+                        >
+                          {renderCell(column, row)}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
           </div>
         </CardContent>
       </Card>
@@ -173,30 +179,37 @@ export function DataTable<T extends Record<string, unknown>>({
                 />
               </PaginationItem>
 
-              {getPageNumbers().map((page, index) => {
-                if (page === "ellipsis") {
+              {(() => {
+                const pageNumbers = getPageNumbers();
+                let ellipsisCounter = 0;
+                return pageNumbers.map((page, position) => {
+                  if (page === "ellipsis") {
+                    ellipsisCounter += 1;
+                    const prevPage = position > 0 ? pageNumbers[position - 1] : null;
+                    const nextPage = position < pageNumbers.length - 1 ? pageNumbers[position + 1] : null;
+                    return (
+                      <PaginationItem key={`ellipsis-${prevPage}-${nextPage}-${ellipsisCounter}`}>
+                        <PaginationEllipsis />
+                      </PaginationItem>
+                    );
+                  }
+
                   return (
-                    <PaginationItem key={`ellipsis-${index}`}>
-                      <PaginationEllipsis />
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setCurrentPage(page);
+                        }}
+                        isActive={currentPage === page}
+                      >
+                        {page}
+                      </PaginationLink>
                     </PaginationItem>
                   );
-                }
-
-                return (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setCurrentPage(page);
-                      }}
-                      isActive={currentPage === page}
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                );
-              })}
+                });
+              })()}
 
               <PaginationItem>
                 <PaginationNext

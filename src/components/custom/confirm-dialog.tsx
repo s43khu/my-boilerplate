@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { type ButtonProps } from "@/components/ui/button";
+import type { ButtonProps } from "@/components/ui/button";
 
 interface ConfirmDialogProps {
   trigger?: ReactNode;

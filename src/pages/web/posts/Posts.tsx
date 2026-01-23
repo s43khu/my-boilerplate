@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
-import { usePostsPaginated, type PostsQueryParams } from "@/services/posts.service";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Pagination,
   PaginationContent,
@@ -10,6 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { type PostsQueryParams, usePostsPaginated } from "@/services/posts.service";
 
 export default function Posts() {
   const [page, setPage] = useState(1);

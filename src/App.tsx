@@ -9,12 +9,12 @@ import {
   AdminDashboard,
   AdminSettings,
   Analytics,
-  Users,
+  APISettingsPage,
+  EmailSettingsPage,
   GeneralSettingsPage,
   SystemSettingsPage,
-  EmailSettingsPage,
-  APISettingsPage,
   Template,
+  Users,
 } from "@/pages/admin";
 import { ForgotPassword, Login, Register } from "@/pages/auth";
 import { NotFound, Unauthorized } from "@/pages/shared";
@@ -24,138 +24,138 @@ function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
-          <Routes>
-            {/* Auth Routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Routes>
+          {/* Auth Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-            {/* Web Panel Routes */}
-            <Route
-              path="/"
-              element={
+          {/* Web Panel Routes */}
+          <Route
+            path="/"
+            element={
+              <WebLayout>
+                <Home />
+              </WebLayout>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
                 <WebLayout>
-                  <Home />
+                  <Dashboard />
                 </WebLayout>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <WebLayout>
-                    <Dashboard />
-                  </WebLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  <WebLayout>
-                    <Profile />
-                  </WebLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute>
-                  <WebLayout>
-                    <Settings />
-                  </WebLayout>
-                </ProtectedRoute>
-              }
-            />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <WebLayout>
+                  <Profile />
+                </WebLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <WebLayout>
+                  <Settings />
+                </WebLayout>
+              </ProtectedRoute>
+            }
+          />
 
-            {/* Admin Panel Routes - No auth required for demo */}
-            <Route
-              path="/admin"
-              element={
-                <AdminLayout>
-                  <AdminDashboard />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/users"
-              element={
-                <AdminLayout>
-                  <Users.Users />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/users/:id"
-              element={
-                <AdminLayout>
-                  <Users.UserDetails />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/analytics"
-              element={
-                <AdminLayout>
-                  <Analytics />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/settings"
-              element={
-                <AdminLayout>
-                  <AdminSettings />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/settings/general"
-              element={
-                <AdminLayout>
-                  <GeneralSettingsPage />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/settings/system"
-              element={
-                <AdminLayout>
-                  <SystemSettingsPage />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/settings/email"
-              element={
-                <AdminLayout>
-                  <EmailSettingsPage />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/settings/api"
-              element={
-                <AdminLayout>
-                  <APISettingsPage />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/admin/template/:id"
-              element={
-                <AdminLayout>
-                  <Template.TemplateDetail />
-                </AdminLayout>
-              }
-            />
+          {/* Admin Panel Routes - No auth required for demo */}
+          <Route
+            path="/admin"
+            element={
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <AdminLayout>
+                <Users.Users />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/users/:id"
+            element={
+              <AdminLayout>
+                <Users.UserDetails />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/analytics"
+            element={
+              <AdminLayout>
+                <Analytics />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <AdminLayout>
+                <AdminSettings />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/settings/general"
+            element={
+              <AdminLayout>
+                <GeneralSettingsPage />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/settings/system"
+            element={
+              <AdminLayout>
+                <SystemSettingsPage />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/settings/email"
+            element={
+              <AdminLayout>
+                <EmailSettingsPage />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/settings/api"
+            element={
+              <AdminLayout>
+                <APISettingsPage />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/template/:id"
+            element={
+              <AdminLayout>
+                <Template.TemplateDetail />
+              </AdminLayout>
+            }
+          />
 
-            {/* Shared Routes */}
-            <Route path="/unauthorized" element={<Unauthorized />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          {/* Shared Routes */}
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         <Toaster />
       </BrowserRouter>
     </ErrorBoundary>

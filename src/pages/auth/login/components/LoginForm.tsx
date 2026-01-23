@@ -42,11 +42,12 @@ export function LoginForm() {
           window.location.href = "/dashboard";
         }, 500);
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
+        const errorMessage = error instanceof Error ? error.message : "Failed to login";
         toast({
           variant: "error",
           title: "Error",
-          description: error.message || "Failed to login",
+          description: errorMessage,
         });
       },
     });

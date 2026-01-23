@@ -1,2 +1,2 @@
 export { ConfirmDialog } from "./confirm-dialog";
-export { DataTable, type Column } from "./data-table";
+export { type Column, DataTable } from "./data-table";

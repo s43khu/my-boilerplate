@@ -1,11 +1,11 @@
 export { default as Analytics } from "./analytics";
 export { default as AdminDashboard } from "./dashboard";
-export { default as AdminSettings } from "./settings";
 export {
+  APISettingsPage,
+  default as AdminSettings,
+  EmailSettingsPage,
   GeneralSettingsPage,
   SystemSettingsPage,
-  EmailSettingsPage,
-  APISettingsPage,
 } from "./settings";
-export * as Users from "./users";
 export * as Template from "./template";
+export * as Users from "./users";

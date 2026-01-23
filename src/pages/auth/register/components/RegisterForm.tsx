@@ -44,11 +44,12 @@ export function RegisterForm() {
           window.location.href = "/dashboard";
         }, 500);
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
+        const errorMessage = error instanceof Error ? error.message : "Failed to create account";
         toast({
           variant: "error",
           title: "Error",
-          description: error.message || "Failed to create account",
+          description: errorMessage,
         });
       },
     });

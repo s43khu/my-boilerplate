@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Edit, Trash2, MoreHorizontal, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DataTable, type Column } from "@/components/custom/data-table";
+import { ConfirmDialog } from "@/components/custom/confirm-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,13 +43,22 @@ const allUsers: User[] = [
 
 export function UsersTable() {
   const navigate = useNavigate();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<{ id: string; name: string } | null>(null);
 
   const handleDelete = (userId: string, userName: string) => {
     console.log(`Deleting user: ${userName} (${userId})`);
+    setDeleteDialogOpen(false);
+    setUserToDelete(null);
   };
 
   const handleView = (userId: string) => {
     navigate(`/admin/users/${userId}`);
+  };
+
+  const openDeleteDialog = (userId: string, userName: string) => {
+    setUserToDelete({ id: userId, name: userName });
+    setDeleteDialogOpen(true);
   };
 
   const columns: Column<User>[] = [
@@ -118,12 +129,7 @@ export function UsersTable() {
               <DropdownMenuItem
                 onSelect={(e) => {
                   e.preventDefault();
-                  const confirmed = window.confirm(
-                    `This will permanently delete ${row.name} from the system. This action cannot be undone.`
-                  );
-                  if (confirmed) {
-                    handleDelete(row.id, row.name);
-                  }
+                  openDeleteDialog(row.id, row.name);
                 }}
                 variant="destructive"
                 className="cursor-pointer"
@@ -139,12 +145,28 @@ export function UsersTable() {
   ];
 
   return (
-    <DataTable
-      data={allUsers}
-      columns={columns}
-      getRowId={(row) => row.id}
-      itemsPerPage={5}
-      countLabel={(start, end, total) => `Showing ${start} to ${end} of ${total} users`}
-    />
+    <>
+      <DataTable
+        data={allUsers}
+        columns={columns}
+        getRowId={(row) => row.id}
+        itemsPerPage={5}
+        countLabel={(start, end, total) => `Showing ${start} to ${end} of ${total} users`}
+      />
+      {userToDelete && (
+        <ConfirmDialog
+          open={deleteDialogOpen}
+          onOpenChange={setDeleteDialogOpen}
+          title="Delete User"
+          description={`This will permanently delete ${userToDelete.name} from the system. This action cannot be undone.`}
+          onConfirm={() => handleDelete(userToDelete.id, userToDelete.name)}
+          confirmText="Delete"
+          cancelText="Cancel"
+          variant="destructive"
+          icon={<Trash2 className="h-4 w-4 text-destructive" />}
+          iconClassName="size-12"
+        />
+      )}
+    </>
   );
 }

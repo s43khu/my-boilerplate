@@ -14,7 +14,7 @@ import {
 import { type ButtonProps } from "@/components/ui/button";
 
 interface ConfirmDialogProps {
-  trigger: ReactNode;
+  trigger?: ReactNode;
   title: string;
   description?: string;
   onConfirm: () => void;
@@ -71,9 +71,11 @@ export function ConfirmDialog({
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogTrigger asChild disabled={disabled}>
-        {trigger}
-      </AlertDialogTrigger>
+      {trigger && (
+        <AlertDialogTrigger asChild disabled={disabled}>
+          {trigger}
+        </AlertDialogTrigger>
+      )}
       <AlertDialogContent size={size}>
         <AlertDialogHeader>
           {icon && <AlertDialogMedia className={iconClassName}>{icon}</AlertDialogMedia>}

@@ -1,32 +1,30 @@
-import { Menu, Moon, Sun } from "lucide-react";
+import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import { useUIStore } from "@/store/uiStore";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
-interface HeaderProps {
-  showSidebarToggle?: boolean;
-}
-
-export function Header({ showSidebarToggle = false }: HeaderProps) {
+export function Header() {
   const { theme, setTheme } = useTheme();
-  const toggleSidebar = useUIStore((state) => state.toggleSidebar);
   const isDark = theme === "dark";
+  const sidebarOpen = useUIStore((state) => state.sidebarOpen);
+  const toggleSidebar = useUIStore((state) => state.toggleSidebar);
+  const isMobile = useMediaQuery("(max-width: 1023px)");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-16 items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-4">
-          {showSidebarToggle && (
+          {isMobile && (
             <Button variant="ghost" size="icon" onClick={toggleSidebar}>
-              <Menu className="h-5 w-5" />
+              {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           )}
-          <h1 className={cn("text-xl font-bold", !showSidebarToggle && "pl-4")}>React Template</h1>
+          <h1 className="text-xl font-bold">React Template</h1>
         </div>
 
-        <div className="flex items-center gap-3 mr-4">
+        <div className="flex items-center gap-3">
           <Switch
             checked={isDark}
             onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}

@@ -46,7 +46,7 @@ export function RegisterForm() {
       },
       onError: (error: any) => {
         toast({
-          variant: "destructive",
+          variant: "error",
           title: "Error",
           description: error.message || "Failed to create account",
         });

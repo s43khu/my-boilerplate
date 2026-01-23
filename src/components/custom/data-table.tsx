@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import {
   Pagination,
   PaginationContent,
@@ -112,10 +113,11 @@ export function DataTable<T extends Record<string, unknown>>({
   };
 
   return (
-    <div className={className}>
+    <div className={cn("w-full", className)}>
       <Card>
-        <CardContent className="pt-6">
-          <Table>
+        <CardContent className="pt-6 overflow-x-auto">
+          <div className="min-w-full">
+            <Table>
             <TableHeader>
               <TableRow>
                 {columns.map((column, index) => (
@@ -145,13 +147,14 @@ export function DataTable<T extends Record<string, unknown>>({
               )}
             </TableBody>
           </Table>
+          </div>
         </CardContent>
       </Card>
 
       {showPagination && totalPages > 1 && (
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4">
           {showCount && (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground text-center sm:text-left">
               {countLabel
                 ? countLabel(startIndex + 1, Math.min(endIndex, totalItemsCount), totalItemsCount)
                 : defaultCountLabel(startIndex + 1, Math.min(endIndex, totalItemsCount), totalItemsCount)}

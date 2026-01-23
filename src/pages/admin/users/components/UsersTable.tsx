@@ -1,7 +1,14 @@
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, MoreHorizontal, Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ConfirmDialog } from "@/components/custom/confirm-dialog";
 import { DataTable, type Column } from "@/components/custom/data-table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type User = {
   id: string;
@@ -33,8 +40,14 @@ const allUsers: User[] = [
 ];
 
 export function UsersTable() {
+  const navigate = useNavigate();
+
   const handleDelete = (userId: string, userName: string) => {
     console.log(`Deleting user: ${userName} (${userId})`);
+  };
+
+  const handleView = (userId: string) => {
+    navigate(`/admin/users/${userId}`);
   };
 
   const columns: Column<User>[] = [
@@ -72,30 +85,54 @@ export function UsersTable() {
       },
     },
     {
-      header: "Actions",
+      header: "",
       accessor: "id",
-      className: "text-right",
+      className: "w-[50px]",
       cell: (_value, row) => (
-        <div className="flex items-center justify-end gap-2">
-          <Button variant="ghost" size="icon">
-            <Edit className="h-4 w-4" />
-          </Button>
-          <ConfirmDialog
-            trigger={
-              <Button variant="ghost" size="icon">
-                <Trash2 className="h-4 w-4" />
+        <div className="flex items-center justify-end">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <MoreHorizontal className="h-4 w-4" />
+                <span className="sr-only">Open menu</span>
               </Button>
-            }
-            title="Delete user?"
-            description={`This will permanently delete ${row.name} from the system. This action cannot be undone.`}
-            onConfirm={() => handleDelete(row.id, row.name)}
-            variant="destructive"
-            size="sm"
-            icon={<Trash2 />}
-            iconClassName="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive"
-            confirmText="Delete"
-            cancelText="Cancel"
-          />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() => handleView(row.id)}
+                className="cursor-pointer"
+              >
+                <Eye className="mr-2 h-4 w-4" />
+                View
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  console.log(`Edit user: ${row.name}`);
+                }}
+                className="cursor-pointer"
+              >
+                <Edit className="mr-2 h-4 w-4" />
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onSelect={(e) => {
+                  e.preventDefault();
+                  const confirmed = window.confirm(
+                    `This will permanently delete ${row.name} from the system. This action cannot be undone.`
+                  );
+                  if (confirmed) {
+                    handleDelete(row.id, row.name);
+                  }
+                }}
+                variant="destructive"
+                className="cursor-pointer"
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       ),
     },

@@ -1,86 +1,89 @@
-import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { toast as hotToast, Toaster as HotToaster } from "react-hot-toast";
+import type { Toast } from "react-hot-toast";
+import { X, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface Toast {
-  id: string;
+export interface ToastProps {
   title?: string;
   description?: string;
-  variant?: "default" | "destructive";
+  variant?: "default" | "success" | "error" | "loading";
 }
 
-let toasts: Toast[] = [];
-let listeners: Array<() => void> = [];
+function CustomToast({ t, title, description, variant }: { t: Toast; title?: string; description?: string; variant?: "default" | "success" | "error" | "loading" }) {
+  const isSuccess = variant === "success";
+  const isError = variant === "error";
+  const isLoading = variant === "loading";
 
-const toast = {
-  add: (toast: Omit<Toast, "id">) => {
-    const id = Math.random().toString(36).substring(7);
-    toasts = [...toasts, { ...toast, id }];
-    listeners.forEach((listener) => listener());
-    return id;
-  },
-  remove: (id: string) => {
-    toasts = toasts.filter((t) => t.id !== id);
-    listeners.forEach((listener) => listener());
-  },
-  subscribe: (listener: () => void) => {
-    listeners = [...listeners, listener];
-    return () => {
-      listeners = listeners.filter((l) => l !== listener);
-    };
-  },
-  getToasts: () => toasts,
-};
-
-export function useToast() {
-  const [toasts, setToasts] = useState<Toast[]>([]);
-
-  useEffect(() => {
-    const unsubscribe = toast.subscribe(() => {
-      setToasts(toast.getToasts());
-    });
-    setToasts(toast.getToasts());
-    return unsubscribe;
-  }, []);
-
-  return {
-    toast: (props: Omit<Toast, "id">) => toast.add(props),
-    toasts,
+  const getIcon = () => {
+    if (isSuccess) {
+      return <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />;
+    }
+    if (isError) {
+      return <AlertCircle className="h-5 w-5 text-destructive" />;
+    }
+    if (isLoading) {
+      return <Loader2 className="h-5 w-5 animate-spin text-foreground" />;
+    }
+    return null;
   };
-}
-
-export function Toaster() {
-  const { toasts } = useToast();
 
   return (
-    <div className="fixed bottom-0 right-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]">
-      {toasts.map((toastItem) => (
-        <div
-          key={toastItem.id}
-          className={cn(
-            "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all",
-            toastItem.variant === "destructive"
-              ? "border-destructive bg-destructive text-destructive-foreground"
-              : "border bg-background text-foreground"
+    <div
+      className={cn(
+        "max-w-md w-full shadow-lg rounded-lg pointer-events-auto flex ring-1 transition-all duration-300 relative bg-background text-foreground ring-border",
+        t.visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"
+      )}
+    >
+      <div className="flex-1 w-0 p-4 pr-10">
+        <div className="flex items-start">
+          {getIcon() && (
+            <div className="shrink-0 mr-3 mt-0.5">
+              {getIcon()}
+            </div>
           )}
-        >
-          <div className="grid gap-1">
-            {toastItem.title && <div className="text-sm font-semibold">{toastItem.title}</div>}
-            {toastItem.description && <div className="text-sm opacity-90">{toastItem.description}</div>}
+          <div className={cn("flex-1", !getIcon() && "ml-3")}>
+            {title && <p className="text-sm font-medium">{title}</p>}
+            {description && (
+              <p className={cn("text-sm", title ? "mt-1 opacity-90" : "")}>
+                {description}
+              </p>
+            )}
           </div>
-          <button
-            type="button"
-            className="absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100"
-            onClick={() => {
-              toast.remove(toastItem.id);
-            }}
-          >
-            <X className="h-4 w-4" />
-          </button>
         </div>
-      ))}
+      </div>
+      <button
+        onClick={() => hotToast.dismiss(t.id)}
+        className="absolute top-2 right-2 rounded-md p-1 hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring transition-opacity"
+        aria-label="Close"
+      >
+        <X className="h-4 w-4" />
+      </button>
     </div>
   );
 }
 
-export { toast };
+export function useToast() {
+  return {
+    toast: (props: ToastProps) => {
+      const { title, description, variant } = props;
+      
+      hotToast.custom(
+        (t) => (
+          <CustomToast
+            t={t}
+            title={title}
+            description={description}
+            variant={variant}
+          />
+        ),
+        {
+          duration: 4000,
+        }
+      );
+    },
+  };
+}
+
+export function Toaster() {
+  return <HotToaster position="bottom-right" />;
+}

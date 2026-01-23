@@ -5,7 +5,17 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import { ProtectedRoute } from "@/components/shared/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
-import { AdminDashboard, AdminSettings, Analytics, Users } from "@/pages/admin";
+import {
+  AdminDashboard,
+  AdminSettings,
+  Analytics,
+  Users,
+  GeneralSettingsPage,
+  SystemSettingsPage,
+  EmailSettingsPage,
+  APISettingsPage,
+  Template,
+} from "@/pages/admin";
 import { ForgotPassword, Login, Register } from "@/pages/auth";
 import { NotFound, Unauthorized } from "@/pages/shared";
 import { Dashboard, Home, Profile, Settings } from "@/pages/web";
@@ -99,6 +109,46 @@ function App() {
               element={
                 <AdminLayout>
                   <AdminSettings />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/settings/general"
+              element={
+                <AdminLayout>
+                  <GeneralSettingsPage />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/settings/system"
+              element={
+                <AdminLayout>
+                  <SystemSettingsPage />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/settings/email"
+              element={
+                <AdminLayout>
+                  <EmailSettingsPage />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/settings/api"
+              element={
+                <AdminLayout>
+                  <APISettingsPage />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/template/:id"
+              element={
+                <AdminLayout>
+                  <Template.TemplateDetail />
                 </AdminLayout>
               }
             />

@@ -13,7 +13,7 @@ export function GeneralSettings() {
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="app-name">Application Name</Label>
-          <Input id="app-name" defaultValue="React Template" />
+          <Input id="app-name" defaultValue="IZI Template" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="app-url">Application URL</Label>

@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 export function HeroSection() {
   return (
     <div className="text-center space-y-6 mb-12">
-      <h1 className="text-4xl font-bold">Welcome to React Template</h1>
+      <h1 className="text-4xl font-bold">Welcome to IZI Template</h1>
       <p className="text-xl text-muted-foreground">
-        A professional, production-ready React template with Web and Admin panels
+        A professional, production-ready IZI template with Web and Admin panels
       </p>
       <div className="flex gap-4 justify-center">
         <Button asChild>

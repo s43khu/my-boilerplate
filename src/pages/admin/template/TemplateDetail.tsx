@@ -144,8 +144,8 @@ export default function TemplateDetail() {
                 </Avatar>
                 <div className="flex-1 space-y-2">
                   <div>
-                    <h3 className="text-xl font-semibold">React Boilerplate Template</h3>
-                    <p className="text-muted-foreground">A comprehensive React template with modern UI components</p>
+                    <h3 className="text-xl font-semibold">IZI Boilerplate Template</h3>
+                    <p className="text-muted-foreground">A comprehensive IZI template with modern UI components</p>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <Badge>React</Badge>

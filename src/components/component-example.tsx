@@ -81,6 +81,7 @@ import {
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 
 export function ComponentExample() {
@@ -88,6 +89,7 @@ export function ComponentExample() {
     <ExampleWrapper>
       <CardExample />
       <FormExample />
+      <SpinnerExample />
     </ExampleWrapper>
   );
 }
@@ -449,6 +451,39 @@ function FormExample() {
           </form>
         </CardContent>
       </Card>
+    </Example>
+  );
+}
+
+function SpinnerExample() {
+  return (
+    <Example title="Spinner">
+      <div className="flex flex-col gap-6 w-full">
+        <div className="flex items-center gap-4">
+          <Spinner className="size-4" />
+          <span className="text-sm text-muted-foreground">Small spinner (size-4)</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Spinner className="size-5" />
+          <span className="text-sm text-muted-foreground">Default spinner (size-5)</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Spinner className="size-6" />
+          <span className="text-sm text-muted-foreground">Medium spinner (size-6)</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Spinner className="size-8" />
+          <span className="text-sm text-muted-foreground">Large spinner (size-8)</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Spinner className="size-10 text-primary" />
+          <span className="text-sm text-muted-foreground">Primary colored spinner</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Spinner className="size-6 text-muted-foreground" />
+          <span className="text-sm">Loading content...</span>
+        </div>
+      </div>
     </Example>
   );
 }

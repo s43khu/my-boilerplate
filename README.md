@@ -1,6 +1,6 @@
-# 🚀 Professional React Template
+# 🚀 Professional IZI Template
 
-A complete, production-ready React template with Web and Admin panels built with modern best practices.
+A complete, production-ready IZI template with Web and Admin panels built with modern best practices.
 
 ## ✨ Features
 
@@ -52,7 +52,7 @@ Create a `.env` file:
 
 ```env
 VITE_API_BASE_URL=https://api.example.com
-VITE_APP_NAME=React Template
+VITE_APP_NAME=IZI Template
 VITE_ENABLE_DEVTOOLS=true
 ```
 
